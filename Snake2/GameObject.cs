@@ -6,7 +6,7 @@
     {
         private int x;
         private int y;
-        private char body = 'o';
+        private char body;
         private ConsoleColor color;
 
         public GameObject(int x, int y)
