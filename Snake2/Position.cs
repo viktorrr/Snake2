@@ -7,8 +7,8 @@
 
         public Position(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         public int X

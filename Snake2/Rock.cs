@@ -7,7 +7,7 @@
         public Rock(int x, int y) : base(x, y)
         {
             this.Body = 'x';
-            this.Color = ConsoleColor.Gray;
+            this.Color = ConsoleColor.Red;
         }
 
         public override void Draw()
@@ -16,7 +16,5 @@
             Console.ForegroundColor = this.Color;
             Console.Write(this.Body);
         }
-
-
     }
 }

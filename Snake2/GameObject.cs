@@ -2,14 +2,13 @@
 {
     using System;
 
-    public abstract class GameObject
+    public abstract class GameObject : Position
     {
-        private int x;
-        private int y;
         private char body;
         private ConsoleColor color;
 
-        public GameObject(int x, int y)
+        protected GameObject(int x, int y)
+            : base(x, y)
         {
             this.X = x;
             this.Y = y;
@@ -17,20 +16,8 @@
 
         public char Body
         {
-            get { return body; }
+            get { return this.body; }
             set { this.body = value; }
-        }
-        
-        public int X
-        {
-            get { return this.x; }
-            set { this.x = value; }
-        }
-
-        public int Y
-        {
-            get { return this.y; }
-            set { this.y = value; }
         }
 
         public ConsoleColor Color

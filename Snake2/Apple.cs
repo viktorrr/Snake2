@@ -4,12 +4,16 @@
 
     public class Apple : GameObject
     {
-        private bool isEaten = false;
-        private int timer = 150;
-        public Apple(int x, int y) : base(x, y)
+        private bool isEaten;
+        private int timer;
+
+        public Apple(int x, int y)
+            : base(x, y)
         {
             this.Body = 'o';
             this.Color = ConsoleColor.Yellow;
+            this.IsEaten = false;
+            this.Timer = 180;
         }
 
         public bool IsEaten

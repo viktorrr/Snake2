@@ -17,7 +17,7 @@
 
         public static void GameStart()
         {
-            var gameSpeed = 80;
+            int gameSpeed = 80;
             bool isGameFinished = false;
 
             Position[] directions =
@@ -75,7 +75,8 @@
                 // get latest element (the head) from Queue
                 var snakeHead = snake.Elements.Last(); 
 
-                // check if the head's next position will hit something
+                // check if the head's next position will hit something -
+                // if it reaches a wall, start drawing from the opposite one
                 var newSnakeHead = new Position(snakeHead.X + nextPosition.X, snakeHead.Y + nextPosition.Y);
 
                 if (newSnakeHead.X < 0)
@@ -98,6 +99,7 @@
                     newSnakeHead.X = 0;
                 }
 
+                // if the apple isn't eaten in time, change it's coordinates and reset the timer
                 if (apple.Timer <= 0)
                 {
                     apple.ChangeCoordinations(
@@ -106,12 +108,15 @@
                     apple.ResetTimer();
                 }
 
+                // checking if the snake is eating the apple
                 if (newSnakeHead.X == apple.X && newSnakeHead.Y == apple.Y)
                 {
                     gameScore++;
                     apple.ChangeCoordinations(
                         RandomGenerator.Next(0, Console.WindowWidth - 1),
                         RandomGenerator.Next(0, Console.WindowHeight - 1));
+
+                    // spawn a new rock every third rock
                     if (gameScore % 3 == 0)
                     {
                         rocks.Add(new Rock(
@@ -122,40 +127,14 @@
                     apple.IsEaten = true;
                     apple.ResetTimer();
 
+                    // accelerate the game a bit
                     if (gameSpeed > 50)
                     {
                         gameSpeed = gameSpeed - 5;
                     }
                 }
 
-                var tempQ = new Queue<Position>();
-
-                foreach (var snakeElement in snake.Elements)
-                {
-                    if (snakeElement.X == newSnakeHead.X && snakeElement.Y == newSnakeHead.Y)
-                    {
-                        isGameFinished = true;
-                    }
-
-                    foreach (var rock in rocks.Where(rock => newSnakeHead.X == rock.X && newSnakeHead.Y == rock.Y))
-                    {
-                        isGameFinished = true;
-                    }
-
-                    tempQ.Enqueue(snakeElement);
-                }
-
-                tempQ.Enqueue(newSnakeHead);
-                tempQ.Dequeue();
-
-                snake.Elements = tempQ;
-
-                foreach (var snakeElement in snake.Elements)
-                {
-                    Console.SetCursorPosition(snakeElement.X, snakeElement.Y);
-                    Console.ForegroundColor = snake.Color;
-                    Console.Write("*");
-                }
+                snake.Draw(newSnakeHead, ref isGameFinished, rocks);
 
                 if (apple.IsEaten)
                 {
