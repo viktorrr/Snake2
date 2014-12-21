@@ -2,16 +2,30 @@
 {
     using System;
 
-    public abstract class GameObject : Position
+    public abstract class GameObject
     {
+        private int x;
+        private int y;
+
         private char body;
         private ConsoleColor color;
 
         protected GameObject(int x, int y)
-            : base(x, y)
         {
             this.X = x;
             this.Y = y;
+        }
+
+        public int X
+        {
+            get { return this.x; }
+            set { this.x = value; }
+        }
+
+        public int Y
+        {
+            get { return this.y; }
+            set { this.y = value; }
         }
 
         public char Body
