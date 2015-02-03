@@ -2,41 +2,27 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class Snake : GameObject
     {
-        private Queue<Position> elements;
-        private ConsoleColor color;
+        private const ConsoleColor DefaultBodyColor = ConsoleColor.Green;
 
         public Snake(int x, int y)
             : base(x, y)
         {
-            this.elements = new Queue<Position>();
-            this.Color = ConsoleColor.Green;
+            this.Elements = new Queue<Position>();
+            this.Color = DefaultBodyColor;
         }
 
-        public ConsoleColor Color
-        {
-            get { return this.color; }
-            set { this.color = value; }
-        }
+        public new ConsoleColor Color { get; set; }
 
-        public Queue<Position> Elements
-        {
-            get { return this.elements; }
-            set { this.elements = value; }
-        }
+        public Queue<Position> Elements { get; set; }
 
-        public override void Draw()
-        {
-        }
-        
         public void AddStartingElements(int totalElementsCount)
         {
             for (int i = 0; i < totalElementsCount; i++)
             {
-                this.elements.Enqueue(new Position(i, 0));
+                this.Elements.Enqueue(new Position(i, 0));
             }
         }
 
@@ -51,7 +37,7 @@
                     isGameFinished = true;
                 }
 
-                foreach (var rock in rocks.Where(rock => newSnakeHead.X == rock.X && newSnakeHead.Y == rock.Y))
+                if (rocks.Exists(rock => rock.X == newSnakeHead.X && rock.Y == newSnakeHead.Y))
                 {
                     isGameFinished = true;
                 }

@@ -1,16 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="Snake2.Snake" Collapsed="true">
-    <Position X="5.25" Y="3.25" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Snake2.Snake">
+    <Position X="5.25" Y="4.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAhAAAAAQAAAAAAAAQACAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAACQAAAAAAAAQAAAAAAAgAAAAAA=</HashCode>
       <FileName>Snake.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Snake2.Rock" Collapsed="true">
-    <Position X="7.75" Y="3.25" Width="1.5" />
+  <Class Name="Snake2.Rock">
+    <Position X="7.25" Y="4.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Rock.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -21,24 +27,27 @@
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Snake2.Position" Collapsed="true">
+  <Class Name="Snake2.Position">
     <Position X="2.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Position.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Snake2.GameObject" Collapsed="true">
-    <Position X="5.25" Y="1.75" Width="1.5" />
+  <Class Name="Snake2.GameObject">
+    <Position X="5.25" Y="1.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAEBAAAAAQAAAACAAABggAAAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAgAAAYAA=</HashCode>
       <FileName>GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Snake2.Apple" Collapsed="true">
-    <Position X="3" Y="3.25" Width="1.5" />
+  <Class Name="Snake2.Apple">
+    <Position X="3.25" Y="4.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAQIAAAACAAAAgAAAAAAAAAAAABAAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAAIAAAAAEAAAgAAAACAAAAAAABAAAAAACAAAAAEAAA=</HashCode>
       <FileName>Apple.cs</FileName>
     </TypeIdentifier>
   </Class>

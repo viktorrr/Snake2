@@ -24,8 +24,8 @@
             {
                 new Position(1, 0),     // 0: right -->
                 new Position(-1, 0),    // 1: left <--
-                new Position(0, -1),     // 2: up ^
-                new Position(0, 1)     // 3: down v
+                new Position(0, -1),    // 2: up ^
+                new Position(0, 1)      // 3: down v
             };
 
             const byte Right = 0;
@@ -34,6 +34,7 @@
             const byte Down = 3;
 
             var currentDirection = Right;
+            var lastDirection = Right;
 
             var snake = new Snake(1, 1);
             snake.AddStartingElements(2);
@@ -54,26 +55,44 @@
                     switch (Console.ReadKey().Key)
                     {
                         case ConsoleKey.LeftArrow:
-                            currentDirection = Left;
+                            lastDirection = Left;
                             break;
                         case ConsoleKey.RightArrow:
-                            currentDirection = Right;
+                            lastDirection = Right;
                             break;
                         case ConsoleKey.DownArrow:
-                            currentDirection = Down;
+                            lastDirection = Down;
                             break;
                         case ConsoleKey.UpArrow:
-                            currentDirection = Up;
+                            lastDirection = Up;
+                            break;
+                    }
+
+                    // used in order to not end the game if the user tries to go the oposite direction
+                    switch (currentDirection)
+                    {
+                        case Up:
+                            currentDirection = lastDirection == Down ? Up : lastDirection;
+                            break;
+                        case Down:
+                            currentDirection = lastDirection == Up ? Down : lastDirection;
+                            break;
+                        case Right:
+                            currentDirection = lastDirection == Left ? Right : lastDirection;
+                            break;
+                        case Left:
+                            currentDirection = lastDirection == Right ? Left : lastDirection;
                             break;
                     }
                 }
-
+                
                 var nextPosition = directions[currentDirection];
 
+                // In order to re-draw the elements
                 Console.Clear();
 
                 // get latest element (the head) from Queue
-                var snakeHead = snake.Elements.Last(); 
+                var snakeHead = snake.Elements.Last();
 
                 // check if the head's next position will hit something -
                 // if it reaches a wall, start drawing from the opposite one
@@ -180,7 +199,7 @@
             do
             {
                 Thread.Sleep(5);
-            } 
+            }
             while (Console.ReadKey().Key != ConsoleKey.Escape);
         }
 

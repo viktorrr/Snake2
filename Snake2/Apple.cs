@@ -4,36 +4,29 @@
 
     public class Apple : GameObject
     {
-        private bool isEaten;
-        private int timer;
+        private const char DefaultBodyValue = 'o';
+        private const ConsoleColor DefaultBodyColor = ConsoleColor.Yellow;
+        private const int DefaultTimer = 195;
 
         public Apple(int x, int y)
             : base(x, y)
         {
-            this.Body = 'o';
-            this.Color = ConsoleColor.Yellow;
+            this.Body = DefaultBodyValue;
+            this.Color = DefaultBodyColor;
+            this.Timer = DefaultTimer;
             this.IsEaten = false;
-            this.Timer = 180;
         }
 
-        public bool IsEaten
-        {
-            get { return this.isEaten; }
-            set { this.isEaten = value; }
-        }
+        public bool IsEaten { get; set; }
 
-        public int Timer
-        {
-            get { return this.timer; }
-            set { this.timer = value; }
-        }
+        public int Timer { get; set; }
 
         public void ResetTimer()
         {
             this.Timer = 50;
         }
 
-        public override void Draw()
+        public void Draw()
         {
             Console.SetCursorPosition(this.X, this.Y);
             Console.ForegroundColor = this.Color;
