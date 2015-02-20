@@ -21,11 +21,5 @@
         public ConsoleColor Color { get; set; }
 
         public abstract void Draw();
-
-        public void ChangeCoordinations(int x, int y)
-        {
-            this.X = x;
-            this.Y = y;
-        }
     }
 }
