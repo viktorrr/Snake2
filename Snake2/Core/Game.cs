@@ -41,7 +41,7 @@
             this.AddRocks(5);
 
             this.Snake = new Snake(1, 1);
-            this.Snake.AddStartingElements(2);
+            this.Snake.AddStartingElements(29);
 
             this.Apple = new Apple(
                 this.randomGenerator.Next(0, Console.WindowWidth - 1),
@@ -73,6 +73,59 @@
                 }
 
                 this.nextPosition = this.directions[this.currentSnakeMovementDirection];
+
+                var newSnakeHead = this.GenerateNewSnakeHead();
+                
+                // In order to re-draw the elements
+                Console.Clear();
+
+                // check if the new snake is eating itself
+                if (this.Snake.Elements.Any(x => x.X == newSnakeHead.X && x.Y == newSnakeHead.Y))
+                {
+                    this.IsOver = true;
+                }
+
+                this.Snake.Elements.Enqueue(newSnakeHead);
+                this.Snake.Elements.Dequeue(); // remove the last "head"
+
+                this.Snake.Draw();
+
+                // check if the new snake is hitting a rock
+                if (this.Rocks.Exists(rock => rock.X == newSnakeHead.X && rock.Y == newSnakeHead.Y))
+                {
+                    this.IsOver = true;
+                }
+
+                // checking if the snake is eating the apple
+                if (this.IsSnakeEatingApple())
+                {
+                    // spawn a new apple and reset the timer
+                    this.Apple = new Apple(
+                        this.randomGenerator.Next(0, Console.WindowWidth - 1),
+                        this.randomGenerator.Next(0, Console.WindowHeight - 1));
+
+                    // the snake is getting fat
+                    this.Snake.Elements.Enqueue(newSnakeHead);
+
+                    // accelerate the game a bit
+                    if (this.Speed > 50)
+                    {
+                        this.Speed = this.Speed - 5;
+                    }
+
+                    // update the score
+                    this.Score++;
+
+                    // spawn a new rock every third rock
+                    if (this.Score % 3 == 0)
+                    {
+                        this.Rocks.Add(
+                            new Rock(
+                                this.randomGenerator.Next(0, Console.WindowWidth - 1),
+                                this.randomGenerator.Next(0, Console.WindowHeight - 1)));
+                    }
+                }
+
                 this.DrawGameObjects();
 
                 Thread.Sleep(this.Speed);
@@ -139,64 +192,12 @@
 
         private void DrawGameObjects()
         {
-            // In order to re-draw the elements
-            Console.Clear();
-
             // if the apple isn't eaten in time, change it's coordinates and reset the timer
             if (this.Apple.Timer <= 0)
             {
                 this.Apple = new Apple(
                     this.randomGenerator.Next(0, Console.WindowWidth - 1),
                     this.randomGenerator.Next(0, Console.WindowHeight - 1));
-            }
-
-            var newSnakeHead = this.GenerateNewSnakeHead();
-
-            this.Snake.Elements.Enqueue(newSnakeHead);
-            this.Snake.Elements.Dequeue(); // remove the last "head"
-            
-            this.Snake.Draw();
-
-            // check if the new snake is hitting a rock
-            if (this.Rocks.Exists(rock => rock.X == newSnakeHead.X && rock.Y == newSnakeHead.Y))
-            {
-                this.IsOver = true;
-            }
-
-            // check if the new snake is eating itself
-            if (this.Snake.Elements.All(x => x.X == newSnakeHead.X && x.Y == newSnakeHead.Y))
-            {
-                this.IsOver = true;
-            }
-
-            // checking if the snake is eating the apple
-            if (this.IsSnakeEatingApple())
-            {
-                // spawn a new apple and reset the timer
-                this.Apple = new Apple(
-                    this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                    this.randomGenerator.Next(0, Console.WindowHeight - 1));
-
-                // the snake is getting fat
-                this.Snake.Elements.Enqueue(newSnakeHead);
-
-                // accelerate the game a bit
-                if (this.Speed > 50)
-                {
-                    this.Speed = this.Speed - 5;
-                }
-
-                // update the score
-                this.Score++;
-
-                // spawn a new rock every third rock
-                if (this.Score % 3 == 0)
-                {
-                    this.Rocks.Add(
-                        new Rock(
-                            this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                            this.randomGenerator.Next(0, Console.WindowHeight - 1)));
-                }
             }
 
             this.Apple.Draw();
