@@ -1,6 +1,8 @@
-﻿namespace Snake2
+﻿namespace Snake2.GameObjects
 {
     using System;
+
+    using Snake2.Core;
 
     public class Rock : GameObject
     {
@@ -13,7 +15,7 @@
             this.Color = DefaultBodyColor;
         }
 
-        public void Draw()
+        public override void Draw()
         {
             Console.SetCursorPosition(this.X, this.Y);
             Console.ForegroundColor = this.Color;

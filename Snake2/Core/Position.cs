@@ -1,4 +1,4 @@
-﻿namespace Snake2
+﻿namespace Snake2.Core
 {
     public class Position
     {

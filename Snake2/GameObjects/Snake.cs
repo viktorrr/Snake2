@@ -1,7 +1,9 @@
-﻿namespace Snake2
+﻿namespace Snake2.GameObjects
 {
     using System;
     using System.Collections.Generic;
+
+    using Snake2.Core;
 
     public class Snake : GameObject
     {
@@ -13,9 +15,7 @@
             this.Elements = new Queue<Position>();
             this.Color = DefaultBodyColor;
         }
-
-        public new ConsoleColor Color { get; set; }
-
+        
         public Queue<Position> Elements { get; set; }
 
         public void AddStartingElements(int totalElementsCount)
@@ -26,30 +26,8 @@
             }
         }
 
-        public void Draw(Position newSnakeHead, ref bool isGameFinished, List<Rock> rocks)
+        public override void Draw()
         {
-            var tempDrawingSnakeQueue = new Queue<Position>();
-
-            foreach (var snakeElement in this.Elements)
-            {
-                if (snakeElement.X == newSnakeHead.X && snakeElement.Y == newSnakeHead.Y)
-                {
-                    isGameFinished = true;
-                }
-
-                if (rocks.Exists(rock => rock.X == newSnakeHead.X && rock.Y == newSnakeHead.Y))
-                {
-                    isGameFinished = true;
-                }
-
-                tempDrawingSnakeQueue.Enqueue(snakeElement);
-            }
-
-            tempDrawingSnakeQueue.Enqueue(newSnakeHead);
-            tempDrawingSnakeQueue.Dequeue();
-
-            this.Elements = tempDrawingSnakeQueue;
-
             foreach (var snakeElement in this.Elements)
             {
                 Console.SetCursorPosition(snakeElement.X, snakeElement.Y);

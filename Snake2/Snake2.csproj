@@ -44,12 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Apple.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="Position.cs" />
+    <Compile Include="GameObjects\Apple.cs" />
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\GameObject.cs" />
+    <Compile Include="Interfaces\IGameObject.cs" />
+    <Compile Include="Core\Position.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Rock.cs" />
-    <Compile Include="Snake.cs" />
+    <Compile Include="GameObjects\Rock.cs" />
+    <Compile Include="GameObjects\Snake.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -1,6 +1,8 @@
-﻿namespace Snake2
+﻿namespace Snake2.GameObjects
 {
     using System;
+
+    using Snake2.Core;
 
     public class Apple : GameObject
     {
@@ -26,11 +28,12 @@
             this.Timer = 50;
         }
 
-        public void Draw()
+        public override void Draw()
         {
             Console.SetCursorPosition(this.X, this.Y);
             Console.ForegroundColor = this.Color;
             Console.Write(this.Body);
+            this.Timer--;
         }
     }
 }
