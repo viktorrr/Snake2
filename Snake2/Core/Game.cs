@@ -38,10 +38,10 @@
             this.LoadSettings();
 
             this.Rocks = new List<Rock>();
-            this.AddRocks(5);
+            this.AddRocks(10);
 
             this.Snake = new Snake(1, 1);
-            this.Snake.AddStartingElements(29);
+            this.Snake.AddStartingElements(3);
 
             this.Apple = new Apple(
                 this.randomGenerator.Next(0, Console.WindowWidth - 1),
