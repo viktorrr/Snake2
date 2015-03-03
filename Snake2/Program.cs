@@ -6,7 +6,8 @@
     {
         public static void Main()
         {
-            Game snakeGame = new Game();
+            var snakeGame = new Game();
+
             snakeGame.GameStart();
         }
     }

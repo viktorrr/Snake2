@@ -40,7 +40,7 @@
             this.Rocks = new List<Rock>();
             this.AddRocks(10);
 
-            this.Snake = this.CreateGameObject(GameObjectTypes.Snake) as Snake;
+            this.Snake = new Snake(new Position(1, 1)); // 1,1 - default start position, top left
 
             this.Apple = this.CreateGameObject(GameObjectTypes.Apple) as Apple;
         }
@@ -85,7 +85,7 @@
                 var newSnakeHead = this.GenerateNewSnakeHead();
 
                 // check if the new snake is eating itself
-                if (this.Snake.Position.Any(snakeBodyElement => snakeBodyElement.X == newSnakeHead.X && snakeBodyElement.Y == newSnakeHead.Y))
+                if (this.Snake.Position.Any(s => s.X == newSnakeHead.X && s.Y == newSnakeHead.Y))
                 {
                     break;
                 }
@@ -96,7 +96,8 @@
                 this.Snake.Draw();
 
                 // check if the new snake is hitting a rock
-                if (this.Rocks.Exists(rock => rock.Position.First().X == newSnakeHead.X && rock.Position.First().Y == newSnakeHead.Y))
+                if (this.Rocks.Exists(r => r.Position.First().X == newSnakeHead.X
+                                       && r.Position.First().Y == newSnakeHead.Y))
                 {
                     break;
                 }
@@ -138,9 +139,10 @@
 
         private GameObject CreateGameObject(GameObjectTypes type)
         {
-            var position = new Position(
-                    this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                    this.randomGenerator.Next(0, Console.WindowHeight - 1));
+            int randomX = this.randomGenerator.Next(0, Console.WindowWidth - 1);
+            int randomY = this.randomGenerator.Next(0, Console.WindowHeight - 1);
+
+            var position = new Position(randomX, randomY);
 
             switch (type)
             {
@@ -148,9 +150,7 @@
                     return new Apple(position);
                 case GameObjectTypes.Rock:
                     return new Rock(position);
-                case GameObjectTypes.Snake:
-                    return new Snake(new Position(1, 1));
-                default:
+               default:
                     throw new ArgumentException("Cannot create game object - unknown type");
             }
         }
@@ -217,7 +217,7 @@
             var result = new Position(
                     snakeHead.X + this.nextPosition.X,
                     snakeHead.Y + this.nextPosition.Y,
-                    '*');
+                    '*'); // Default symbol for the snake's body
 
             // check if the head's next position will hit something -
             // if it reaches a wall, start drawing from the opposite one
@@ -248,7 +248,8 @@
         {
             var newSnakeHead = this.Snake.Position.Peek();
 
-            if (newSnakeHead.X == this.Apple.Position.Last().X && newSnakeHead.Y == this.Apple.Position.First().Y)
+            if (newSnakeHead.X == this.Apple.Position.Last().X
+                && newSnakeHead.Y == this.Apple.Position.First().Y)
             {
                 this.Apple.IsEaten = true;
             }
@@ -261,18 +262,17 @@
             const string EndGameMessage = "Game over! Total Score: ";
 
             Console.Clear();
-            Console.SetCursorPosition(
-                (Console.WindowWidth - EndGameMessage.Length) / 2,
-                (Console.WindowHeight / 2) - 2);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Game over! Total Score: {0}", gameScore);
-            do
-            {
-                Thread.Sleep(5);
-            }
-            while (Console.ReadKey().Key != ConsoleKey.Escape);
-        }
 
+            int consoleCenterX = (Console.WindowWidth - EndGameMessage.Length) / 2;
+            int consoleCenterY = (Console.WindowHeight / 2) - 2;
+
+            Console.SetCursorPosition(consoleCenterX, consoleCenterY);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine("Game over! Total Score: {0}", gameScore);
+        }
+        
         private void LoadSettings()
         {
             Console.WindowWidth = 100;
