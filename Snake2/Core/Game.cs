@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading;
 
-    using Snake2.GameObjects;
+    using Snake2.Core.GameObjects;
 
     public class Game
     {
@@ -28,7 +28,7 @@
         private byte lastSnakeMovementDirection = RightMovementDirection;
 
         private Position nextPosition;
-    
+
         public Game()
         {
             this.IsOver = false;
@@ -40,12 +40,9 @@
             this.Rocks = new List<Rock>();
             this.AddRocks(10);
 
-            this.Snake = new Snake(1, 1);
-            this.Snake.AddStartingElements(3);
+            this.Snake = this.CreateGameObject(GameObjectTypes.Snake) as Snake;
 
-            this.Apple = new Apple(
-                this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                this.randomGenerator.Next(0, Console.WindowHeight - 1));
+            this.Apple = this.CreateGameObject(GameObjectTypes.Apple) as Apple;
         }
 
         private int Speed { get; set; }
@@ -67,45 +64,50 @@
                 if (Console.KeyAvailable)
                 {
                     this.GetLastSnakeMovementDirection();
-                    
+
                     // used in order to not end the game if the user tries to go the oposite direction
                     this.GetCurrentMovementDirection();
                 }
 
+                // In order to re-draw the elements
+                Console.Clear();
+                
+                // if the apple isn't eaten in time, change it's coordinates and reset the timer
+                if (this.Apple.Timer <= 0)
+                {
+                    this.Apple = this.CreateGameObject(GameObjectTypes.Apple) as Apple;
+                }
+
+                this.Apple.Draw();
+
                 this.nextPosition = this.directions[this.currentSnakeMovementDirection];
 
                 var newSnakeHead = this.GenerateNewSnakeHead();
-                
-                // In order to re-draw the elements
-                Console.Clear();
 
                 // check if the new snake is eating itself
-                if (this.Snake.Elements.Any(x => x.X == newSnakeHead.X && x.Y == newSnakeHead.Y))
+                if (this.Snake.Position.Any(snakeBodyElement => snakeBodyElement.X == newSnakeHead.X && snakeBodyElement.Y == newSnakeHead.Y))
                 {
-                    this.IsOver = true;
+                    break;
                 }
 
-                this.Snake.Elements.Enqueue(newSnakeHead);
-                this.Snake.Elements.Dequeue(); // remove the last "head"
+                this.Snake.Position.Enqueue(newSnakeHead);
+                this.Snake.Position.Dequeue(); // remove the last "head"
 
                 this.Snake.Draw();
 
                 // check if the new snake is hitting a rock
-                if (this.Rocks.Exists(rock => rock.X == newSnakeHead.X && rock.Y == newSnakeHead.Y))
+                if (this.Rocks.Exists(rock => rock.Position.First().X == newSnakeHead.X && rock.Position.First().Y == newSnakeHead.Y))
                 {
-                    this.IsOver = true;
+                    break;
                 }
 
-                // checking if the snake is eating the apple
                 if (this.IsSnakeEatingApple())
                 {
                     // spawn a new apple and reset the timer
-                    this.Apple = new Apple(
-                        this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                        this.randomGenerator.Next(0, Console.WindowHeight - 1));
+                    this.Apple = this.CreateGameObject(GameObjectTypes.Apple) as Apple;
 
                     // the snake is getting fat
-                    this.Snake.Elements.Enqueue(newSnakeHead);
+                    this.Snake.Position.Enqueue(newSnakeHead);
 
                     // accelerate the game a bit
                     if (this.Speed > 50)
@@ -119,19 +121,38 @@
                     // spawn a new rock every third rock
                     if (this.Score % 3 == 0)
                     {
-                        this.Rocks.Add(
-                            new Rock(
-                                this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                                this.randomGenerator.Next(0, Console.WindowHeight - 1)));
+                        this.Rocks.Add(this.CreateGameObject(GameObjectTypes.Rock) as Rock);
                     }
                 }
-
-                this.DrawGameObjects();
+                
+                foreach (var rock in this.Rocks)
+                {
+                    rock.Draw();
+                }
 
                 Thread.Sleep(this.Speed);
             }
 
             this.PrintEndGameMessage(this.Score);
+        }
+
+        private GameObject CreateGameObject(GameObjectTypes type)
+        {
+            var position = new Position(
+                    this.randomGenerator.Next(0, Console.WindowWidth - 1),
+                    this.randomGenerator.Next(0, Console.WindowHeight - 1));
+
+            switch (type)
+            {
+                case GameObjectTypes.Apple:
+                    return new Apple(position);
+                case GameObjectTypes.Rock:
+                    return new Rock(position);
+                case GameObjectTypes.Snake:
+                    return new Snake(new Position(1, 1));
+                default:
+                    throw new ArgumentException("Cannot create game object - unknown type");
+            }
         }
 
         private void GetCurrentMovementDirection()
@@ -184,38 +205,19 @@
         {
             for (int i = 0; i < count; i++)
             {
-                this.Rocks.Add(new Rock(
-                        this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                        this.randomGenerator.Next(0, Console.WindowHeight - 1)));
-            }
-        }
-
-        private void DrawGameObjects()
-        {
-            // if the apple isn't eaten in time, change it's coordinates and reset the timer
-            if (this.Apple.Timer <= 0)
-            {
-                this.Apple = new Apple(
-                    this.randomGenerator.Next(0, Console.WindowWidth - 1),
-                    this.randomGenerator.Next(0, Console.WindowHeight - 1));
-            }
-
-            this.Apple.Draw();
-
-            foreach (var rock in this.Rocks)
-            {
-                rock.Draw();
+                this.Rocks.Add(this.CreateGameObject(GameObjectTypes.Rock) as Rock);
             }
         }
 
         private Position GenerateNewSnakeHead()
         {
             // get latest element (the head) from Queue
-            var snakeHead = this.Snake.Elements.Last();
-            
+            var snakeHead = this.Snake.Position.Last();
+
             var result = new Position(
                     snakeHead.X + this.nextPosition.X,
-                    snakeHead.Y + this.nextPosition.Y);
+                    snakeHead.Y + this.nextPosition.Y,
+                    '*');
 
             // check if the head's next position will hit something -
             // if it reaches a wall, start drawing from the opposite one
@@ -244,9 +246,9 @@
 
         private bool IsSnakeEatingApple()
         {
-            var newSnakeHead = this.Snake.Elements.Last();
+            var newSnakeHead = this.Snake.Position.Peek();
 
-            if (newSnakeHead.X == this.Apple.X && newSnakeHead.Y == this.Apple.Y)
+            if (newSnakeHead.X == this.Apple.Position.Last().X && newSnakeHead.Y == this.Apple.Position.First().Y)
             {
                 this.Apple.IsEaten = true;
             }

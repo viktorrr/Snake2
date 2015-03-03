@@ -1,4 +1,4 @@
-﻿namespace Snake2.GameObjects
+﻿namespace Snake2.Core.GameObjects
 {
     using System;
     using System.Collections.Generic;
@@ -8,31 +8,36 @@
     public class Snake : GameObject
     {
         private const ConsoleColor DefaultBodyColor = ConsoleColor.Green;
+        private const char DefaultBodyValue = '*';
 
-        public Snake(int x, int y)
-            : base(x, y)
+        public Snake(Position position)
         {
-            this.Elements = new Queue<Position>();
             this.Color = DefaultBodyColor;
+
+            position.Value = DefaultBodyValue;
+
+            this.Position = new Queue<Position>();
+            this.Position.Enqueue(position);
+
+            this.AddStartingElements(2);
         }
-        
-        public Queue<Position> Elements { get; set; }
 
         public void AddStartingElements(int totalElementsCount)
         {
             for (int i = 0; i < totalElementsCount; i++)
             {
-                this.Elements.Enqueue(new Position(i, 0));
+                this.Position.Enqueue(new Position(i, 0, DefaultBodyValue));
             }
         }
 
         public override void Draw()
         {
-            foreach (var snakeElement in this.Elements)
+            Console.ForegroundColor = this.Color;
+
+            foreach (var snakeElement in this.Position)
             {
                 Console.SetCursorPosition(snakeElement.X, snakeElement.Y);
-                Console.ForegroundColor = this.Color;
-                Console.Write("*");
+                Console.Write(snakeElement.Value);
             }
         }
     }

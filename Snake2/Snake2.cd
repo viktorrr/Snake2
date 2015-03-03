@@ -1,60 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Snake2.GameObjects.Snake">
-    <Position X="7.25" Y="7.5" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAACQAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Snake.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Snake2.GameObjects.Rock">
-    <Position X="9.25" Y="7.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GameObjects\Rock.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Snake2.Core.GameObject">
-    <Position X="7" Y="4.75" Width="2.25" />
+    <Position X="7" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAEBAAAAAAAAAAAAAAAAgAAAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAgAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Core\GameObject.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Snake2.GameObjects.Apple">
-    <Position X="5.5" Y="7.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAIAAAAAEAAAgAAAACAAAAAAABAAAAAACAAAAAEAAA=</HashCode>
-      <FileName>GameObjects\Apple.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Snake2.Core.Game">
-    <Position X="7" Y="1.75" Width="2.25" />
+    <Position X="7" Y="1.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ihAAEAAACgACAI0BAAAAAIABgAAMQACAAAAACCAIIAA=</HashCode>
+      <HashCode>ihAAEAAACAACAI0BAAAAAIgBgAAMQACAAAAACCAIIAA=</HashCode>
       <FileName>Core\Game.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Snake2.Interfaces.IGameObject">
-    <Position X="4.5" Y="4.75" Width="2.25" />
+  <Class Name="Snake2.Core.GameObjects.Snake">
+    <Position X="5" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAABAAAAAAAAAAAAAAAAgAAAYAA=</HashCode>
-      <FileName>Interfaces\IGameObject.cs</FileName>
+      <HashCode>AAAAAAAAAEAAAgAAAACAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\GameObjects\Snake.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="Snake2.Core.GameObjects.Apple">
+    <Position X="9" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAEAAAgAAAACAAAAAAABAAAAAACAAAAAEAAA=</HashCode>
+      <FileName>Core\GameObjects\Apple.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Snake2.Core.GameObjects.Rock">
+    <Position X="7" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\GameObjects\Rock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -1,24 +1,13 @@
 ﻿namespace Snake2.Core
 {
     using System;
-
-    using Snake2.Interfaces;
-
-    public abstract class GameObject : IGameObject
+    using System.Collections.Generic;
+    
+    public abstract class GameObject
     {
-        protected GameObject(int x, int y)
-        {
-            this.X = x;
-            this.Y = y;
-        }
+        public Queue<Position> Position { get; internal set; }
         
-        public int X { get; set; }
-
-        public int Y { get; set; }
-
-        public char Body { get; set; }
-
-        public ConsoleColor Color { get; set; }
+        public ConsoleColor Color { get; internal set; }
 
         public abstract void Draw();
     }

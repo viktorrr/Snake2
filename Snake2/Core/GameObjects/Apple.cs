@@ -1,6 +1,8 @@
-﻿namespace Snake2.GameObjects
+﻿namespace Snake2.Core.GameObjects
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using Snake2.Core;
 
@@ -10,13 +12,17 @@
         private const ConsoleColor DefaultBodyColor = ConsoleColor.Yellow;
         private const int DefaultTimer = 195;
 
-        public Apple(int x, int y)
-            : base(x, y)
+        public Apple(Position position)
         {
-            this.Body = DefaultBodyValue;
+            this.IsEaten = false;
+
             this.Color = DefaultBodyColor;
             this.Timer = DefaultTimer;
-            this.IsEaten = false;
+
+            position.Value = DefaultBodyValue;
+
+            this.Position = new Queue<Position>();
+            this.Position.Enqueue(position);
         }
 
         public bool IsEaten { get; set; }
@@ -30,9 +36,9 @@
 
         public override void Draw()
         {
-            Console.SetCursorPosition(this.X, this.Y);
+            Console.SetCursorPosition(this.Position.First().X, this.Position.First().Y);
             Console.ForegroundColor = this.Color;
-            Console.Write(this.Body);
+            Console.Write(this.Position.First().Value);
             this.Timer--;
         }
     }
