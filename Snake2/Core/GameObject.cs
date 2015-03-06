@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    
-    public abstract class GameObject
+
+    using Snake2.Core.Interfaces;
+
+    public abstract class GameObject : IGameObject
     {
-        public Queue<Position> Position { get; internal set; }
+        public Queue<Position> Position { get; set; }
         
-        public ConsoleColor Color { get; internal set; }
+        public ConsoleColor Color { get; set; }
 
         public abstract void Draw();
     }

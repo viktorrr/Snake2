@@ -4,8 +4,9 @@
     using System.Collections.Generic;
 
     using Snake2.Core;
+    using Snake2.Core.Interfaces;
 
-    public class Snake : GameObject
+    public class Snake : GameObject, IMoveableGameObject
     {
         private const ConsoleColor DefaultBodyColor = ConsoleColor.Green;
         private const char DefaultBodyValue = '*';
@@ -21,6 +22,8 @@
 
             this.AddStartingElements(2);
         }
+
+        public int MovementSpeed { get; set; }
 
         public void AddStartingElements(int totalElementsCount)
         {

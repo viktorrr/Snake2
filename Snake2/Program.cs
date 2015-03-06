@@ -8,7 +8,8 @@
         {
             var snakeGame = new Game();
 
-            snakeGame.GameStart();
+            snakeGame.Start();
+            snakeGame.PrintEndGameMessage();
         }
     }
 }
