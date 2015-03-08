@@ -44,8 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ConsoleGame.cs" />
     <Compile Include="Core\GameObjects\Apple.cs" />
-    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\SnakeGame.cs" />
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\Interfaces\IGameObject.cs" />
     <Compile Include="Core\Interfaces\IMoveableGameObject.cs" />

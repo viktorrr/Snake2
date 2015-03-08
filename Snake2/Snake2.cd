@@ -8,26 +8,16 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Snake2.Core.Game">
-    <Position X="7" Y="1.75" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>ihAAEAAACAACAI0BAAAAAIgBgAAMQACAAAAACCAIIAA=</HashCode>
-      <FileName>Core\Game.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Snake2.Core.GameObjects.Snake">
     <Position X="5" Y="7" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAgAAAACAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAAAAAACAAAAAAAgAQAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\GameObjects\Snake.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Snake2.Core.GameObjects.Apple">
     <Position X="9" Y="7" Width="1.5" />
@@ -35,7 +25,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAEAAAgAAAACAAAAAAABAAAAAACAAAAAEAAA=</HashCode>
+      <HashCode>AAAIAAAAAEAAAAAAAACAAAAAAABAAAAAACAAAAAEAAA=</HashCode>
       <FileName>Core\GameObjects\Apple.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -45,7 +35,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Core\GameObjects\Rock.cs</FileName>
     </TypeIdentifier>
   </Class>

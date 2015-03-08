@@ -6,10 +6,9 @@
     {
         public static void Main()
         {
-            var snakeGame = new Game();
+            var snakeGame = new SnakeGame();
 
-            snakeGame.Start();
-            snakeGame.PrintEndGameMessage();
+            snakeGame.Play();
         }
     }
 }

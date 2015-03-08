@@ -32,16 +32,5 @@
                 this.Position.Enqueue(new Position(i, 0, DefaultBodyValue));
             }
         }
-
-        public override void Draw()
-        {
-            Console.ForegroundColor = this.Color;
-
-            foreach (var snakeElement in this.Position)
-            {
-                Console.SetCursorPosition(snakeElement.X, snakeElement.Y);
-                Console.Write(snakeElement.Value);
-            }
-        }
     }
 }

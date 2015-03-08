@@ -11,6 +11,15 @@
         
         public ConsoleColor Color { get; set; }
 
-        public abstract void Draw();
+        public void Draw()
+        {
+            Console.ForegroundColor = this.Color;
+
+            foreach (var position in this.Position)
+            {
+                Console.SetCursorPosition(position.X, position.Y);
+                Console.Write(position.Value);
+            }
+        }
     }
 }

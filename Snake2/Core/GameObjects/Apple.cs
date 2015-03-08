@@ -33,13 +33,5 @@
         {
             this.Timer = 50;
         }
-
-        public override void Draw()
-        {
-            Console.SetCursorPosition(this.Position.First().X, this.Position.First().Y);
-            Console.ForegroundColor = this.Color;
-            Console.Write(this.Position.First().Value);
-            this.Timer--;
-        }
     }
 }

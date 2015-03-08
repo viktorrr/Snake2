@@ -8,11 +8,14 @@
     using Snake2.Core.GameObjects;
     using Snake2.Core.Interfaces;
 
-    public class Game
+    public class SnakeGame : ConsoleGame
     {
-        private const byte RightMovementDirection = 0;
         private const byte LeftMovementDirection = 1;
+
+        private const byte RightMovementDirection = 0;
+
         private const byte UpMovementDirection = 2;
+
         private const byte DownMovementDirection = 3;
 
         private readonly Random randomGenerator;
@@ -20,26 +23,22 @@
         private readonly IMoveableGameObject snake;
 
         private readonly ICollection<Rock> rocks;
-
-        private readonly Position[] directions;
-
+        
         private byte currentSnakeMovementDirection;
 
         private byte lastSnakeMovementDirection;
 
-        private int score;
-
         private Apple apple;
 
         private Position nextPosition;
-
-        public Game()
+        
+        public SnakeGame()
         {
             this.LoadSettings();
 
             this.randomGenerator = new Random();
-
-            this.directions = new[]
+            
+            this.Directions = new[]
             {
                 new Position(1, 0),     // 0: right -->
                 new Position(-1, 0),    // 1: left <--
@@ -51,7 +50,7 @@
 
             this.lastSnakeMovementDirection = RightMovementDirection;
 
-            this.score = 0;
+            this.Score = 0;
 
             this.rocks = new List<Rock>();
             this.AddRocks(10);
@@ -64,7 +63,7 @@
             this.apple = new Apple(randomPosition);
         }
 
-        public void Start()
+        public void Play()
         {
             while (true)
             {
@@ -87,8 +86,9 @@
                 }
 
                 this.apple.Draw();
+                this.apple.Timer--;
 
-                this.nextPosition = this.directions[this.currentSnakeMovementDirection];
+                this.nextPosition = this.Directions[this.currentSnakeMovementDirection];
 
                 var newSnakeHead = this.CalculateNewSnakeStartPosition();
 
@@ -126,10 +126,10 @@
                     }
 
                     // update the score
-                    this.score++;
+                    this.Score++;
 
                     // spawn a new rock every third rock
-                    if (this.score % 3 == 0)
+                    if (this.Score % 3 == 0)
                     {
                         var rockRandomPosition = this.GenerateRandomPosition();
                         this.rocks.Add(new Rock(rockRandomPosition));
@@ -143,11 +143,13 @@
 
                 Thread.Sleep(this.snake.MovementSpeed);
             }
+
+            this.PrintEndGameMessage();
         }
 
-        public void PrintEndGameMessage()
+        private void PrintEndGameMessage()
         {
-            const string EndGameMessage = "Game over! Total Score: ";
+            const string EndGameMessage = "Game over! Total Score: {0}";
 
             Console.Clear();
 
@@ -158,10 +160,10 @@
 
             Console.ForegroundColor = ConsoleColor.Red;
 
-            Console.WriteLine("Game over! Total Score: {0}", this.score);
+            Console.WriteLine(EndGameMessage, this.Score);
         }
 
-        public void LoadSettings()
+        private void LoadSettings()
         {
             Console.WindowWidth = 100;
             Console.WindowHeight = 40;
